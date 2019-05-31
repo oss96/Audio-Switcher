@@ -119,7 +119,7 @@ namespace AudioSwitcher
             shortcut.TargetPath = targetPath;
             shortcut.WindowStyle = 1;
             shortcut.WorkingDirectory = targetDirectory;
-            // shortcut.IconLocation = iconLocation;
+            shortcut.IconLocation = Path.GetDirectoryName(Application.ExecutablePath) + "\\Resources\\Icon black.ico";
             shortcut.Save();
         }
 
