@@ -1,151 +1,106 @@
-﻿using AudioSwitcher.Properties;
-using NAudio.CoreAudioApi;
+﻿using IWshRuntimeLibrary;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AudioSwitcher
 {
     public partial class MainForm : Form
     {
+        List<Device> devices = new List<Device>();
+
 
         public MainForm()
         {
             InitializeComponent();
+            InitializeControls();
+            RefreshDevices();
+        }
+
+
+        private void InitializeControls()
+        {
+            this.MinimumSize = new Size(600, 600);
             this.BackColor = Color.FromArgb(54, 57, 63);
             checkedListBoxDevices.BackColor = Color.FromArgb(47, 49, 54);
-            panel1.BackColor = Color.FromArgb(47, 49, 54);
-            if (Settings.Default.Devices == null)
+            menuStrip1.Renderer = new MyRenderer();
+            menuStrip1.BackColor = Color.FromArgb(54, 57, 63);
+            menuStrip1.ForeColor = Color.White;
+            foreach (ToolStripMenuItem item in menuStrip1.Items)
             {
-                Settings.Default.Devices = new System.Collections.Specialized.StringCollection();
+                item.BackColor = Color.FromArgb(54, 57, 63);
+                item.ForeColor = Color.White;
+                foreach (ToolStripMenuItem dropDownItems in item.DropDown.Items)
+                {
+                    dropDownItems.BackColor = Color.FromArgb(54, 57, 63);
+                    dropDownItems.ForeColor = Color.White;
+                    dropDownItems.BackgroundImage = null;
+                    dropDownItems.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                }
             }
-            RefreshDevices();
         }
 
         #region Events
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            /*if (Settings.Default.CurrentDevice == "none")
-            {
-                Settings.Default.CurrentDevice = "Sound System";
-                Settings.Default.Save();
-            }
-
-            if (Settings.Default.CurrentDevice == "Sound System")
-            {
-                Settings.Default.CurrentDevice = "Beyerdynamic DT 770 Pro";
-                Settings.Default.Save();
-            }
-            else
-            {
-                Settings.Default.CurrentDevice = "Sound System";
-                Settings.Default.Save();
-            }
-            Process proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "nircmd.exe",
-                    Arguments = $"setdefaultsounddevice \"{Settings.Default.CurrentDevice}\" 0",
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                }
-            };
-            proc.Start();*/
-            this.labelCurrentDevice.Text = $"Current Device: {Settings.Default.CurrentDevice}";
-            Settings.Default.Save();
-            List<string> s = Settings.Default.Devices.Cast<string>().ToList();
-        }
-        private void ButtonAddDevice_Click(object sender, EventArgs e)
-        {
-            buttonAddDevice.Hide();
-            buttonCancel.Show();
-            buttonSave.Show();
-            textBoxDeviceName.Show();
-            labelAudioDevice.Show();
-        }
-        private void ButtonSave_Click(object sender, EventArgs e)
-        {
-            buttonSave.Hide();
-            buttonCancel.Hide();
-            textBoxDeviceName.Hide();
-            labelAudioDevice.Hide();
-            buttonAddDevice.Show();
-            Settings.Default.Devices.Add(textBoxDeviceName.Text);
-            Settings.Default.Save();
-            RefreshDevices();
-            textBoxDeviceName.Text = "";
-        }
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            buttonSave.Hide();
-            buttonCancel.Hide();
-            textBoxDeviceName.Hide();
-            labelAudioDevice.Hide();
-            buttonAddDevice.Show();
-            RefreshDevices();
-            textBoxDeviceName.Text = "";
-        }
-        private void ButtonRemoveDevice_Click(object sender, EventArgs e)
-        {
-            foreach (string item in checkedListBoxDevices.CheckedItems)
-            {
-                if (Settings.Default.Devices.Contains(item))
-                {
-                    Settings.Default.Devices.Remove(item);
-                }
-            }
-            Settings.Default.Save();
-            RefreshDevices();
-            buttonRemoveDevice.Enabled = false;
-            buttonRemoveDevice.BackColor = Color.Silver;
-        }
-        private void TextBoxDeviceName_TextChanged(object sender, EventArgs e)
-        {
-            if (checkedListBoxDevices.Items.Contains(textBoxDeviceName.Text))
-            {
-                labelErrorMessage.Show();
-                buttonSave.Enabled = false;
-                buttonSave.BackColor = Color.Silver;
-            }
-            else
-            {
-                labelErrorMessage.Hide();
-                buttonSave.Enabled = true;
-                buttonSave.BackColor = Color.White;
-            }
-        }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            devices = AudioManager.ActiveDevices;
             RefreshDevices();
+            foreach (Device item in devices)
+            {
+                checkedListBoxDevices.Items.Add(item.Name);
+            }
         }
         private void CheckedListBoxDevices_MouseUp(object sender, MouseEventArgs e)
         {
-            if (checkedListBoxDevices.CheckedItems.Count != 0)
+            if (checkedListBoxDevices.CheckedItems.Count == 1)
             {
-                buttonRemoveDevice.Enabled = true;
+                buttonCreateShortcut.Enabled = false;
+            }
+            else if (checkedListBoxDevices.CheckedItems.Count > 1)
+            {
+                buttonCreateShortcut.Enabled = true;
             }
             else
             {
-                buttonRemoveDevice.Enabled = false;
+                buttonCreateShortcut.Enabled = false;
             }
         }
-        private void ButtonRemoveDevice_EnabledChanged(object sender, EventArgs e)
+        private void ButtonCreateShortcut_EnabledChanged(object sender, EventArgs e)
         {
             if ((sender as Button).Enabled)
             {
-                buttonRemoveDevice.BackColor = Color.White;
+                buttonCreateShortcut.BackColor = Color.White;
             }
             else
             {
-                buttonRemoveDevice.BackColor = Color.Silver;
+                buttonCreateShortcut.BackColor = Color.Silver;
+            }
+
+        }
+        private void ButtonCreateShortcut_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog openFileDialog = new SaveFileDialog
+            {
+                Filter = "Shortcuts | *.lnk",
+                RestoreDirectory = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Please choose a folder where the Shortcut should be created",
+                AddExtension = false,
+                OverwritePrompt = true
+            };
+            DialogResult r = openFileDialog.ShowDialog();
+
+            if (r == DialogResult.OK)
+            {
+                string checkedDevices = "";
+                foreach (var item in checkedListBoxDevices.CheckedItems)
+                {
+                    checkedDevices += $"-{item} ";
+                }
+                CreateShortcut(openFileDialog.FileName, Path.GetDirectoryName(Application.ExecutablePath) + "\\" + Path.GetFileName(Application.ExecutablePath), checkedDevices, Path.GetDirectoryName(Application.ExecutablePath), "");
             }
         }
         #endregion
@@ -153,12 +108,61 @@ namespace AudioSwitcher
         internal void RefreshDevices()
         {
             checkedListBoxDevices.Items.Clear();
-            checkedListBoxDevices.Items.AddRange(Settings.Default.Devices.Cast<string>().ToArray());
             checkedListBoxDevices.Refresh();
-            var enumerator = new MMDeviceEnumerator();
-            MMDevice mMDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-            string deviceName = mMDevice.FriendlyName.Remove(mMDevice.FriendlyName.IndexOf("(")).TrimEnd();
-            labelCurrentDevice.Text = $"Current Device: {deviceName}";
+            labelCurrentDevice.Text = $"Current Device: {AudioManager.DefaultDevice}";
+        }
+        internal void CreateShortcut(string creationPath, string targetPath, string devices, string targetDirectory, string iconLocation)
+        {
+            WshShell wsh = new WshShell();
+            IWshShortcut shortcut = wsh.CreateShortcut(creationPath) as IWshShortcut;
+            shortcut.Arguments = devices;
+            shortcut.TargetPath = targetPath;
+            shortcut.WindowStyle = 1;
+            shortcut.WorkingDirectory = targetDirectory;
+            // shortcut.IconLocation = iconLocation;
+            shortcut.Save();
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Info about = new Info();
+            Thread showAbout = new Thread(() => { about.ShowDialog(); });
+            showAbout.Start();
+        }
+
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/oss96/Audio-Switcher/blob/master/README.md");
         }
     }
+
+    class MyRenderer : ToolStripProfessionalRenderer
+    {
+        public MyRenderer() : base(new MyColors()) { }
+    }
+
+    class MyColors : ProfessionalColorTable
+    {
+        public override Color MenuItemSelected => Color.FromArgb(47, 49, 54);
+        public override Color MenuItemSelectedGradientBegin => Color.FromArgb(47, 49, 54);
+        public override Color MenuItemSelectedGradientEnd => Color.FromArgb(47, 49, 54);
+        public override Color MenuBorder => Color.FromArgb(47, 49, 54);
+        public override Color MenuItemPressedGradientBegin => Color.FromArgb(47, 49, 54);
+        public override Color MenuItemPressedGradientMiddle => Color.FromArgb(47, 49, 54);
+        public override Color MenuItemPressedGradientEnd => Color.FromArgb(47, 49, 54);
+        public override Color ToolStripDropDownBackground => Color.FromArgb(47, 49, 54);
+        public override Color ToolStripBorder => Color.FromArgb(54, 57, 63);
+        public override Color ToolStripGradientBegin => Color.FromArgb(54, 57, 63);
+        public override Color ToolStripGradientEnd => Color.FromArgb(54, 57, 63);
+        public override Color ToolStripGradientMiddle => Color.FromArgb(54, 57, 63);
+        public override Color MenuItemBorder => Color.FromArgb(54, 57, 63);
+        public override Color ToolStripContentPanelGradientBegin => Color.FromArgb(54, 57, 63);
+    }
+
+
 }

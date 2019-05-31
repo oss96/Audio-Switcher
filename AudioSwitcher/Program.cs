@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AudioSwitcher
@@ -14,9 +13,34 @@ namespace AudioSwitcher
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length > 1)
+            {
+                //run program without an interface
+                List<string> tmp = args.ToList();
+                tmp.Remove(args[0]);
+                string arguments = "";
+                foreach (var item in tmp)
+                {
+                    arguments += item + " ";
+                }
+                tmp = arguments.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<Device> devices = new List<Device>();
+                int i = 1;
+                foreach (string item in tmp)
+                {
+                    devices.Add(new Device(i, item.TrimEnd()));
+                    i++;
+                }
+                AudioSwitcher.AudioManager.SwitchActiveDevice(devices);
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
         }
     }
 }

@@ -22,28 +22,5 @@ namespace AudioSwitcher.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("none")]
-        public string CurrentDevice {
-            get {
-                return ((string)(this["CurrentDevice"]));
-            }
-            set {
-                this["CurrentDevice"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection Devices {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Devices"]));
-            }
-            set {
-                this["Devices"] = value;
-            }
-        }
     }
 }

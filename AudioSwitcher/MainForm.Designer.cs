@@ -28,217 +28,173 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.labelCurrentDevice = new System.Windows.Forms.Label();
-            this.textBoxDeviceName = new System.Windows.Forms.TextBox();
-            this.labelAudioDevice = new System.Windows.Forms.Label();
-            this.buttonAddDevice = new System.Windows.Forms.Button();
+            this.buttonCreateShortcut = new System.Windows.Forms.Button();
             this.checkedListBoxDevices = new System.Windows.Forms.CheckedListBox();
-            this.buttonRemoveDevice = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelErrorMessage = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Roboto", 12F);
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(205, 231);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 34);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // labelCurrentDevice
             // 
             this.labelCurrentDevice.AutoSize = true;
             this.labelCurrentDevice.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCurrentDevice.ForeColor = System.Drawing.Color.White;
-            this.labelCurrentDevice.Location = new System.Drawing.Point(13, 9);
+            this.labelCurrentDevice.Location = new System.Drawing.Point(13, 51);
             this.labelCurrentDevice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCurrentDevice.Name = "labelCurrentDevice";
             this.labelCurrentDevice.Size = new System.Drawing.Size(212, 33);
             this.labelCurrentDevice.TabIndex = 1;
             this.labelCurrentDevice.Text = "Current Device: ";
             // 
-            // textBoxDeviceName
+            // buttonCreateShortcut
             // 
-            this.textBoxDeviceName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.textBoxDeviceName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.textBoxDeviceName.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxDeviceName.Location = new System.Drawing.Point(690, 56);
-            this.textBoxDeviceName.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxDeviceName.Name = "textBoxDeviceName";
-            this.textBoxDeviceName.Size = new System.Drawing.Size(181, 27);
-            this.textBoxDeviceName.TabIndex = 2;
-            this.textBoxDeviceName.Visible = false;
-            this.textBoxDeviceName.TextChanged += new System.EventHandler(this.TextBoxDeviceName_TextChanged);
-            // 
-            // labelAudioDevice
-            // 
-            this.labelAudioDevice.AutoSize = true;
-            this.labelAudioDevice.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAudioDevice.ForeColor = System.Drawing.Color.White;
-            this.labelAudioDevice.Location = new System.Drawing.Point(705, 33);
-            this.labelAudioDevice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelAudioDevice.Name = "labelAudioDevice";
-            this.labelAudioDevice.Size = new System.Drawing.Size(150, 19);
-            this.labelAudioDevice.TabIndex = 3;
-            this.labelAudioDevice.Text = "Audio Device Name";
-            this.labelAudioDevice.Visible = false;
-            // 
-            // buttonAddDevice
-            // 
-            this.buttonAddDevice.BackColor = System.Drawing.Color.White;
-            this.buttonAddDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddDevice.Font = new System.Drawing.Font("Roboto", 12F);
-            this.buttonAddDevice.ForeColor = System.Drawing.Color.Black;
-            this.buttonAddDevice.Location = new System.Drawing.Point(691, 91);
-            this.buttonAddDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonAddDevice.Name = "buttonAddDevice";
-            this.buttonAddDevice.Size = new System.Drawing.Size(180, 54);
-            this.buttonAddDevice.TabIndex = 4;
-            this.buttonAddDevice.Text = "Add Device";
-            this.buttonAddDevice.UseVisualStyleBackColor = false;
-            this.buttonAddDevice.Click += new System.EventHandler(this.ButtonAddDevice_Click);
+            this.buttonCreateShortcut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCreateShortcut.BackColor = System.Drawing.Color.Silver;
+            this.buttonCreateShortcut.Enabled = false;
+            this.buttonCreateShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCreateShortcut.Font = new System.Drawing.Font("Roboto", 12F);
+            this.buttonCreateShortcut.ForeColor = System.Drawing.Color.Black;
+            this.buttonCreateShortcut.Location = new System.Drawing.Point(200, 494);
+            this.buttonCreateShortcut.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCreateShortcut.Name = "buttonCreateShortcut";
+            this.buttonCreateShortcut.Size = new System.Drawing.Size(180, 54);
+            this.buttonCreateShortcut.TabIndex = 12;
+            this.buttonCreateShortcut.Text = "Create Shortcut";
+            this.buttonCreateShortcut.UseVisualStyleBackColor = false;
+            this.buttonCreateShortcut.EnabledChanged += new System.EventHandler(this.ButtonCreateShortcut_EnabledChanged);
+            this.buttonCreateShortcut.Click += new System.EventHandler(this.ButtonCreateShortcut_Click);
             // 
             // checkedListBoxDevices
             // 
             this.checkedListBoxDevices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBoxDevices.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBoxDevices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.checkedListBoxDevices.CheckOnClick = true;
             this.checkedListBoxDevices.ForeColor = System.Drawing.Color.White;
             this.checkedListBoxDevices.FormattingEnabled = true;
-            this.checkedListBoxDevices.Location = new System.Drawing.Point(4, 4);
+            this.checkedListBoxDevices.Location = new System.Drawing.Point(13, 88);
             this.checkedListBoxDevices.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxDevices.Name = "checkedListBoxDevices";
-            this.checkedListBoxDevices.Size = new System.Drawing.Size(299, 506);
+            this.checkedListBoxDevices.Size = new System.Drawing.Size(558, 398);
             this.checkedListBoxDevices.Sorted = true;
             this.checkedListBoxDevices.TabIndex = 6;
             this.checkedListBoxDevices.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CheckedListBoxDevices_MouseUp);
             // 
-            // buttonRemoveDevice
+            // menuStrip1
             // 
-            this.buttonRemoveDevice.BackColor = System.Drawing.Color.Silver;
-            this.buttonRemoveDevice.Enabled = false;
-            this.buttonRemoveDevice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRemoveDevice.Font = new System.Drawing.Font("Roboto", 12F);
-            this.buttonRemoveDevice.ForeColor = System.Drawing.Color.Black;
-            this.buttonRemoveDevice.Location = new System.Drawing.Point(691, 153);
-            this.buttonRemoveDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonRemoveDevice.Name = "buttonRemoveDevice";
-            this.buttonRemoveDevice.Size = new System.Drawing.Size(180, 54);
-            this.buttonRemoveDevice.TabIndex = 7;
-            this.buttonRemoveDevice.Text = "Remove Device";
-            this.buttonRemoveDevice.UseVisualStyleBackColor = false;
-            this.buttonRemoveDevice.EnabledChanged += new System.EventHandler(this.ButtonRemoveDevice_EnabledChanged);
-            this.buttonRemoveDevice.Click += new System.EventHandler(this.ButtonRemoveDevice_Click);
+            this.menuStrip1.BackColor = System.Drawing.Color.Gray;
+            this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.menuStrip1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.infoToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(584, 23);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // buttonSave
+            // fileToolStripMenuItem
             // 
-            this.buttonSave.BackColor = System.Drawing.Color.White;
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Font = new System.Drawing.Font("Roboto", 12F);
-            this.buttonSave.ForeColor = System.Drawing.Color.Black;
-            this.buttonSave.Location = new System.Drawing.Point(690, 91);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(90, 54);
-            this.buttonSave.TabIndex = 8;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = false;
-            this.buttonSave.Visible = false;
-            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.fileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.fileToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.fileToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 19);
+            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
-            // buttonCancel
+            // exitToolStripMenuItem
             // 
-            this.buttonCancel.BackColor = System.Drawing.Color.White;
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Roboto", 12F);
-            this.buttonCancel.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancel.Location = new System.Drawing.Point(781, 91);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(90, 54);
-            this.buttonCancel.TabIndex = 9;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Visible = false;
-            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.exitToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.exitToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.exitToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.exitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
-            // labelErrorMessage
+            // infoToolStripMenuItem
             // 
-            this.labelErrorMessage.AutoSize = true;
-            this.labelErrorMessage.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold);
-            this.labelErrorMessage.ForeColor = System.Drawing.Color.Red;
-            this.labelErrorMessage.Location = new System.Drawing.Point(875, 59);
-            this.labelErrorMessage.Name = "labelErrorMessage";
-            this.labelErrorMessage.Size = new System.Drawing.Size(164, 19);
-            this.labelErrorMessage.TabIndex = 10;
-            this.labelErrorMessage.Text = "Device already added";
-            this.labelErrorMessage.Visible = false;
+            this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.infoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(42, 19);
+            this.infoToolStripMenuItem.Text = "Info";
             // 
-            // panel1
+            // helpToolStripMenuItem
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.checkedListBoxDevices);
-            this.panel1.ForeColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(879, 91);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(309, 555);
-            this.panel1.TabIndex = 11;
+            this.helpToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.Gray;
+            this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1200, 658);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelErrorMessage);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.buttonRemoveDevice);
-            this.Controls.Add(this.buttonAddDevice);
-            this.Controls.Add(this.labelAudioDevice);
-            this.Controls.Add(this.textBoxDeviceName);
+            this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.checkedListBoxDevices);
+            this.Controls.Add(this.buttonCreateShortcut);
             this.Controls.Add(this.labelCurrentDevice);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Audio Device Switcher";
             this.TransparencyKey = System.Drawing.Color.LightPink;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label labelCurrentDevice;
-        private System.Windows.Forms.TextBox textBoxDeviceName;
-        private System.Windows.Forms.Label labelAudioDevice;
-        private System.Windows.Forms.Button buttonAddDevice;
+        private System.Windows.Forms.Button buttonCreateShortcut;
         private System.Windows.Forms.CheckedListBox checkedListBoxDevices;
-        private System.Windows.Forms.Button buttonRemoveDevice;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelErrorMessage;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
