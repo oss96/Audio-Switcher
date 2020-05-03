@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace AudioSwitcher
 {
@@ -10,9 +11,13 @@ namespace AudioSwitcher
         internal static void SwitchActiveDevice(List<Device> devices)
         {
             Device nextDevice = new Device();
+            if (Properties.Settings.Default.LastAudioDevice == "")
+            {
+                Properties.Settings.Default.LastAudioDevice = devices.First().Name;
+            }
             foreach (Device item in devices)
             {
-                if (DefaultDevice == item.Name)
+                if (Properties.Settings.Default.LastAudioDevice == item.Name)
                 {
                     if (devices.Last() != item)
                     {
@@ -25,9 +30,26 @@ namespace AudioSwitcher
                     break;
                 }
             }
+            Properties.Settings.Default.LastAudioDevice = nextDevice.Name;
+            Properties.Settings.Default.Save();
+            Thread threadNotification = new Thread(() => ShowNotification("Active Audio Device: " + nextDevice.Name));
+            threadNotification.Start();
             SetActiveDevice(nextDevice);
+            threadNotification.Join();
         }
-
+        private static void ShowNotification(string text)
+        {
+            var notification = new System.Windows.Forms.NotifyIcon()
+            {
+                Visible = true,
+                Icon = System.Drawing.SystemIcons.Information,
+                BalloonTipTitle = "Audio Device Switcher",
+                BalloonTipText = text,
+            };
+            notification.ShowBalloonTip(3000);
+            Thread.Sleep(3000);
+            notification.Dispose();
+        }
         internal static List<Device> ActiveDevices
         {
             get
@@ -45,7 +67,6 @@ namespace AudioSwitcher
                 return devices;
             }
         }
-
         internal static string DefaultDevice
         {
             get
@@ -56,7 +77,6 @@ namespace AudioSwitcher
                 return deviceName;
             }
         }
-
         internal static void SetActiveDevice(Device device)
         {
             Process proc = new Process
@@ -86,7 +106,7 @@ namespace AudioSwitcher
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "nircmd.exe",
-                    Arguments = $"setdefaultsounddevice \"{device.Name}\" 2",
+                    Arguments = $"setdefaultsounddevice DFX Speakers 2",
                     UseShellExecute = false,
                     CreateNoWindow = true
                 }

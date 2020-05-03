@@ -100,6 +100,7 @@ namespace AudioSwitcher
                 {
                     checkedDevices += $"-{item} ";
                 }
+                checkedDevices.TrimEnd();
                 CreateShortcut(openFileDialog.FileName, Path.GetDirectoryName(Application.ExecutablePath) + "\\" + Path.GetFileName(Application.ExecutablePath), checkedDevices, Path.GetDirectoryName(Application.ExecutablePath), "");
             }
         }
