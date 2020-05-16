@@ -98,14 +98,27 @@ namespace AudioSwitcher
                 string checkedDevices = "";
                 foreach (var item in checkedListBoxDevices.CheckedItems)
                 {
-                    checkedDevices += $"-{item} ";
+                    checkedDevices += $" \"{item}\" ";
                 }
                 checkedDevices.TrimEnd();
                 CreateShortcut(openFileDialog.FileName, Path.GetDirectoryName(Application.ExecutablePath) + "\\" + Path.GetFileName(Application.ExecutablePath), checkedDevices, Path.GetDirectoryName(Application.ExecutablePath), "");
             }
         }
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Info about = new Info();
+            Thread showAbout = new Thread(() => { about.ShowDialog(); });
+            showAbout.Start();
+        }
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/oss96/Audio-Switcher/blob/master/README.md");
+        }
         #endregion
-
         internal void RefreshDevices()
         {
             checkedListBoxDevices.Items.Clear();
@@ -122,23 +135,6 @@ namespace AudioSwitcher
             shortcut.WorkingDirectory = targetDirectory;
             shortcut.IconLocation = Path.GetDirectoryName(Application.ExecutablePath) + "\\Resources\\Icon black.ico";
             shortcut.Save();
-        }
-
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(Environment.ExitCode);
-        }
-
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Info about = new Info();
-            Thread showAbout = new Thread(() => { about.ShowDialog(); });
-            showAbout.Start();
-        }
-
-        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/oss96/Audio-Switcher/blob/master/README.md");
         }
     }
 
