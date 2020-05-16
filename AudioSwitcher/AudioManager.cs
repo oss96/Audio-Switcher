@@ -42,7 +42,7 @@ namespace AudioSwitcher
             var notification = new System.Windows.Forms.NotifyIcon()
             {
                 Visible = true,
-                Icon = System.Drawing.SystemIcons.Information,
+                Icon = Properties.Resources.Icon_white,
                 BalloonTipTitle = "Audio Device Switcher",
                 BalloonTipText = text,
             };
